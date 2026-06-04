@@ -1,0 +1,14 @@
+INSTRUÇÕES DE ÁUDIO (MÚSICA DE FUNDO):
+
+Para tocar a música que você escolheu:
+"Ícaro e Gilmar - Pot-Pourri: Rosas, Versos e Vinhos / Sou Fã / Difícil"
+(Link: https://www.youtube.com/watch?v=Zd56ufOLlFY)
+
+Siga os passos:
+1. Baixe o áudio do vídeo acima em formato MP3 (usando um conversor ou ferramenta de sua escolha).
+2. Salve o arquivo nesta pasta com o nome exato: musica.mp3
+3. Caminho final do arquivo deve ser: /public/audio/musica.mp3
+
+O site já está programado para detectar automaticamente o arquivo 'musica.mp3' nesta pasta e utilizá-lo como trilha sonora principal do presente digital!
+
+Caso o arquivo não seja encontrado ou ainda não tenha sido colocado, o site usará um fallback automático e elegante (a melodia de piano clássica "Gymnopédie No. 1" de Erik Satie) para que a experiência nunca fique sem som.

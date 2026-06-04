@@ -1,0 +1,14 @@
+INSTRUÇÕES PARA AS FOTOS DA GALERIA:
+
+Para personalizar este presente digital com as fotos de vocês, basta adicionar as fotos nesta pasta com os nomes correspondentes:
+
+1. memoria-1.jpg  -> Um dos nossos momentos (Retrato - Vertical)
+2. memoria-2.jpg  -> Um pedacinho da nossa história (Paisagem - Horizontal)
+3. memoria-3.jpg  -> Nós dois (Quadrada)
+4. memoria-4.jpg  -> Memória favorita (Retrato - Vertical)
+5. memoria-5.jpg  -> Sempre você (Paisagem - Horizontal)
+6. memoria-6.jpg  -> Mais um capítulo (Quadrada)
+
+Formatos recomendados: JPEG (.jpg) ou PNG (.png). Se usar PNG, altere a extensão no arquivo src/components/MemoriesGallery.tsx caso necessário, mas para facilidade mantivemos o padrão .jpg.
+
+O site possui tratamento visual premium automático que ajustará o zoom e aplicará os efeitos parallax a elas!

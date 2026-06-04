@@ -1,0 +1,104 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    background-color: #080607;
+    color: #FFF7F2;
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+  }
+
+  body {
+    background-color: #080607;
+    overflow-x: hidden;
+  }
+
+  /* Custom Premium Scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #080607;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #3B0A18;
+    border-radius: 3px;
+    border: 1px solid rgba(216, 178, 110, 0.1);
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #C7798B;
+  }
+}
+
+@layer utilities {
+  /* Cinematic noise texture overlay */
+  .noise-overlay {
+    position: fixed;
+    top: -50%;
+    left: -50%;
+    right: -50%;
+    bottom: -50%;
+    width: 200%;
+    height: 200%;
+    background: transparent url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.02'/%3E%3C/svg%3E") repeat;
+    pointer-events: none;
+    z-index: 9999;
+  }
+
+  /* Premium Glassmorphism */
+  .glass-card {
+    background: rgba(15, 8, 10, 0.6);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 247, 242, 0.08);
+  }
+
+  .glass-card-hover {
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .glass-card-hover:hover {
+    background: rgba(59, 10, 24, 0.25);
+    border-color: rgba(216, 178, 110, 0.3);
+    box-shadow: 0 10px 30px -10px rgba(59, 10, 24, 0.5), 0 0 20px 0 rgba(216, 178, 110, 0.05);
+    transform: translateY(-2px);
+  }
+
+  /* Textures and light glows */
+  .radial-glow-vinho {
+    background: radial-gradient(circle at center, rgba(59, 10, 24, 0.4) 0%, rgba(8, 6, 7, 0) 70%);
+  }
+
+  .radial-glow-dourado {
+    background: radial-gradient(circle at center, rgba(216, 178, 110, 0.08) 0%, rgba(8, 6, 7, 0) 60%);
+  }
+
+  .radial-glow-rosa {
+    background: radial-gradient(circle at center, rgba(199, 121, 139, 0.12) 0%, rgba(8, 6, 7, 0) 60%);
+  }
+
+  .text-glow-dourado {
+    text-shadow: 0 0 15px rgba(216, 178, 110, 0.4);
+  }
+
+  .text-glow-rosa {
+    text-shadow: 0 0 15px rgba(199, 121, 139, 0.4);
+  }
+
+  /* School Notebook lines & grids */
+  .notebook-lines {
+    background-size: 100% 28px;
+    background-image: linear-gradient(rgba(255, 247, 242, 0.05) 1px, transparent 1px);
+    line-height: 28px;
+  }
+
+  .notebook-margin {
+    border-right: 1px solid rgba(199, 121, 139, 0.2);
+    position: relative;
+  }
+}
