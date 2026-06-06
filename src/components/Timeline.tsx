@@ -2,44 +2,20 @@ import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Heart, Sparkles, MessageCircle, Star } from "lucide-react";
+import { useContent } from "../content/ContentContext";
 
 gsap.registerPlugin(ScrollTrigger);
 
-interface TimelineItem {
-  date: string;
-  title: string;
-  description: string;
-  icon: any;
-}
-
-const items: TimelineItem[] = [
-  {
-    date: "08/10/2022",
-    title: "O dia em que tudo começou",
-    description: "Foi na escola. Talvez parecesse só mais um dia comum, mas hoje eu sei que Deus estava escrevendo uma das partes mais bonitas da minha vida.",
-    icon: Sparkles,
-  },
-  {
-    date: "O começo de tudo",
-    title: "Nossa conexão",
-    description: "Entre conversas, olhares, risadas e aquele frio na barriga, você foi se tornando cada vez mais importante para mim.",
-    icon: MessageCircle,
-  },
-  {
-    date: "Hoje",
-    title: "Ainda escolhendo você",
-    description: "Depois de tudo que vivemos, eu olho para você e tenho certeza: eu escolheria você de novo. Em todos os dias. Em todas as versões da minha vida.",
-    icon: Heart,
-  },
-  {
-    date: "12 de Junho",
-    title: "Nosso Dia dos Namorados",
-    description: "Esse site é só uma pequena tentativa de transformar em palavras tudo aquilo que você significa para mim.",
-    icon: Star,
-  },
-];
+// Ícones fixos por posição (o texto vem do conteúdo editável).
+const icons = [Sparkles, MessageCircle, Heart, Star];
 
 export default function Timeline() {
+  const { timeline } = useContent();
+  const items = timeline.map((item, idx) => ({
+    ...item,
+    icon: icons[idx % icons.length],
+  }));
+
   const sectionRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLDivElement>(null);
   const progressLineRef = useRef<HTMLDivElement>(null);

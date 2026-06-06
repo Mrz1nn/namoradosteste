@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Heart, X } from "lucide-react";
+import { useContent } from "../content/ContentContext";
 
 interface FallingHeart {
   id: number;
@@ -16,6 +17,7 @@ interface FallingHeart {
 }
 
 export default function FinalSection() {
+  const { finalSection } = useContent();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [hearts, setHearts] = useState<FallingHeart[]>([]);
   const animationFrameId = useRef<number | null>(null);
@@ -99,7 +101,7 @@ export default function FinalSection() {
             <Heart className="w-4 h-4 text-dourado fill-dourado/10" />
           </div>
           <h2 className="text-3xl md:text-5xl lg:text-6xl font-title font-light tracking-tight text-brancoQuente leading-tight">
-            Você não é só minha namorada.
+            {finalSection.title}
           </h2>
         </motion.div>
 
@@ -111,7 +113,7 @@ export default function FinalSection() {
           transition={{ duration: 1, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
           className="text-rosa text-lg md:text-xl font-title italic tracking-wide max-w-xl mx-auto mb-12"
         >
-          Você é uma das partes mais bonitas da minha vida.
+          {finalSection.subtitle}
         </motion.p>
 
         {/* CTA Button */}
@@ -127,7 +129,7 @@ export default function FinalSection() {
           >
             <div className="absolute inset-0 bg-gradient-to-r from-vinho-light to-rosa opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-0" />
             <span className="relative z-10 flex items-center gap-2">
-              Eu te amo
+              {finalSection.buttonText}
               <Heart className="w-5 h-5 fill-rosa/20 group-hover:fill-rosa transition-colors duration-300" />
             </span>
           </button>
@@ -181,6 +183,7 @@ export default function FinalSection() {
               {/* Close Button */}
               <button
                 onClick={() => setIsModalOpen(false)}
+                aria-label="Fechar"
                 className="absolute top-6 right-6 p-2 rounded-full bg-white/5 border border-white/10 text-brancoQuente/60 hover:text-brancoQuente hover:bg-white/10 transition-all duration-200 active:scale-95"
               >
                 <X className="w-4 h-4" />
@@ -193,18 +196,18 @@ export default function FinalSection() {
 
               {/* Title & Message */}
               <h3 className="text-xl md:text-2xl font-title text-dourado text-glow-dourado mb-6 font-normal">
-                Minha eterna escolha
+                {finalSection.modalTitle}
               </h3>
 
               <p className="text-brancoQuente/90 text-base md:text-lg font-light leading-relaxed mb-8">
-                “E eu escolheria você de novo. Hoje, amanhã e quantas vidas Deus permitir.”
+                “{finalSection.modalQuote}”
               </p>
 
               <div className="w-12 h-[1px] bg-white/10 mx-auto mb-8" />
 
               {/* Close subtitle */}
               <p className="text-rosa font-title italic text-lg font-normal tracking-wide">
-                Feliz Dia dos Namorados, meu amor.
+                {finalSection.modalFooter}
               </p>
             </motion.div>
           </motion.div>

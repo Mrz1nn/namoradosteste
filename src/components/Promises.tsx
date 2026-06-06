@@ -2,50 +2,21 @@ import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ShieldCheck, HeartHandshake, Sparkles, TrendingUp, Sun } from "lucide-react";
+import { useContent } from "../content/ContentContext";
 
 gsap.registerPlugin(ScrollTrigger);
 
-interface PromiseItem {
-  id: number;
-  title: string;
-  description: string;
-  icon: any;
-}
-
-const promises: PromiseItem[] = [
-  {
-    id: 1,
-    title: "Continuar escolhendo você",
-    description: "Em todos os amanheceres, em todas as escolhas cotidianas, continuar decidindo que meu coração pertence a você.",
-    icon: Sparkles,
-  },
-  {
-    id: 2,
-    title: "Cuidar da nossa história",
-    description: "Proteger o que construímos, guardar nossas piadas internas e fazer com que nossos momentos juntos continuem sendo preciosos.",
-    icon: ShieldCheck,
-  },
-  {
-    id: 3,
-    title: "Estar presente",
-    description: "Tanto nos dias de sol e sorrisos bobos quanto nas tempestades difíceis, oferecendo meu colo e minha escuta.",
-    icon: HeartHandshake,
-  },
-  {
-    id: 4,
-    title: "Crescer ao seu lado",
-    description: "Evoluir como pessoa, apoiar seus sonhos individuais e aprender com cada lição que a vida nos trouxer como casal.",
-    icon: TrendingUp,
-  },
-  {
-    id: 5,
-    title: "Lembrar você do seu valor",
-    description: "Dizer todos os dias o quanto você é inteligente, forte, linda e, acima de tudo, o quanto você é amada por mim.",
-    icon: Sun,
-  },
-];
+// Ícones fixos por posição (os textos vêm do conteúdo editável).
+const icons = [Sparkles, ShieldCheck, HeartHandshake, TrendingUp, Sun];
 
 export default function Promises() {
+  const { promises: promisesContent } = useContent();
+  const promises = promisesContent.map((promise, idx) => ({
+    ...promise,
+    id: idx + 1,
+    icon: icons[idx % icons.length],
+  }));
+
   const containerRef = useRef<HTMLDivElement>(null);
   const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
 

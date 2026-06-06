@@ -2,10 +2,12 @@ import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { BookOpen, Calendar, GraduationCap } from "lucide-react";
+import { useContent } from "../content/ContentContext";
 
 gsap.registerPlugin(ScrollTrigger);
 
 export default function StoryStart() {
+  const { storyStart } = useContent();
   const containerRef = useRef<HTMLDivElement>(null);
   const textRef = useRef<HTMLDivElement>(null);
   const cardRef = useRef<HTMLDivElement>(null);
@@ -72,19 +74,17 @@ export default function StoryStart() {
         <div ref={textRef} className="lg:col-span-6 flex flex-col justify-center select-none">
           <div className="inline-flex items-center gap-2 text-xs md:text-sm uppercase tracking-[0.2em] text-rosa font-medium mb-6">
             <GraduationCap className="w-4 h-4 text-rosa" />
-            Onde Tudo Começou
+            {storyStart.eyebrow}
           </div>
 
           <h2 className="text-3xl md:text-5xl lg:text-6xl font-title font-light tracking-tight text-brancoQuente leading-tight mb-8">
-            Tudo começou na <span className="italic text-dourado font-normal">escola</span>.
+            {storyStart.titlePrefix} <span className="italic text-dourado font-normal">{storyStart.titleHighlight}</span>.
           </h2>
 
           <div className="space-y-6 text-brancoQuente/80 font-light text-base md:text-lg leading-relaxed max-w-xl">
-            <p>
-              No dia <span className="text-rosa font-medium">08/10/2022</span>, em um lugar comum, aconteceu algo que mudou a minha vida de um jeito que eu nunca poderia imaginar.
-            </p>
+            <p>{storyStart.paragraph1}</p>
             <p className="text-brancoQuente/60 text-sm md:text-base">
-              Duas rotinas normais dividindo o mesmo espaço. Cadernos abertos, conversas no corredor e, de repente, um olhar que carregava um destino diferente de tudo que eu já tinha conhecido.
+              {storyStart.paragraph2}
             </p>
           </div>
         </div>
@@ -122,26 +122,26 @@ export default function StoryStart() {
               <div className="mb-8">
                 <span className="block text-[11px] uppercase tracking-[0.2em] text-rosa mb-2 font-medium">Data do Encontro</span>
                 <span className="text-4xl md:text-5xl font-title text-dourado text-glow-dourado font-light tracking-wide">
-                  08 . 10 . 22
+                  {storyStart.cardBigDate}
                 </span>
               </div>
 
               {/* Card Content with Notebook line pattern */}
               <div className="notebook-lines text-brancoQuente/70 font-light text-sm md:text-base space-y-7 leading-[28px] mb-4">
                 <p className="border-b border-white/5 pb-1">
-                  Matéria: O começo de nós.
+                  Matéria: {storyStart.cardSubject}
                 </p>
                 <p className="border-b border-white/5 pb-1">
-                  Local: Corredores da escola.
+                  Local: {storyStart.cardPlace}
                 </p>
                 <p className="border-b border-white/5 pb-1">
-                  Anotação: O riso mais bonito que encontrei.
+                  Anotação: {storyStart.cardNote}
                 </p>
               </div>
 
               <div className="flex items-center gap-3 text-xs text-brancoQuente/40 mt-8 pt-4 border-t border-white/5">
                 <Calendar className="w-3.5 h-3.5" />
-                <span>Primeiro capítulo da nossa história</span>
+                <span>{storyStart.cardFooter}</span>
               </div>
             </div>
             

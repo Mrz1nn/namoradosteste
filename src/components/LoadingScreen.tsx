@@ -1,35 +1,25 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Heart } from "lucide-react";
+import { useContent } from "../content/ContentContext";
 
 interface LoadingScreenProps {
   onFinished: () => void;
 }
 
-const phrases = [
-  "08/10/2022",
-  "O dia em que tudo começou",
-  "Da escola para a vida",
-  "Nossa história",
-];
-
 export default function LoadingScreen({ onFinished }: LoadingScreenProps) {
+  const { loading } = useContent();
+  const phrases = loading.phrases;
   const [progress, setProgress] = useState(0);
   const [phraseIndex, setPhraseIndex] = useState(0);
   const [isComplete, setIsComplete] = useState(false);
 
-  // Rotate phrases based on progress
+  // Rotate phrases based on progress (distribui as frases pela barra)
   useEffect(() => {
-    if (progress < 25) {
-      setPhraseIndex(0);
-    } else if (progress < 50) {
-      setPhraseIndex(1);
-    } else if (progress < 75) {
-      setPhraseIndex(2);
-    } else {
-      setPhraseIndex(3);
-    }
-  }, [progress]);
+    const total = phrases.length || 1;
+    const idx = Math.min(Math.floor((progress / 100) * total), total - 1);
+    setPhraseIndex(idx);
+  }, [progress, phrases.length]);
 
   // Handle counter progress
   useEffect(() => {
@@ -84,7 +74,7 @@ export default function LoadingScreen({ onFinished }: LoadingScreenProps) {
                 transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
                 className="text-lg md:text-2xl font-title tracking-wide text-dourado text-glow-dourado font-light italic"
               >
-                Para você, meu amor.
+                {loading.finalPhrase}
               </motion.p>
             )}
           </AnimatePresence>

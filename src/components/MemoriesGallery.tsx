@@ -2,63 +2,30 @@ import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Camera, Image as ImageIcon } from "lucide-react";
+import { useContent } from "../content/ContentContext";
 
 gsap.registerPlugin(ScrollTrigger);
 
-interface MemoryItem {
-  id: number;
-  src: string;
-  legend: string;
-  aspect: string;
-  speed: number;
-}
-
-const memories: MemoryItem[] = [
-  {
-    id: 1,
-    src: "/images/memoria-1.jpg",
-    legend: "Um dos nossos momentos",
-    aspect: "aspect-[3/4]",
-    speed: -0.15,
-  },
-  {
-    id: 2,
-    src: "/images/memoria-2.jpg",
-    legend: "Um pedacinho da nossa história",
-    aspect: "aspect-[4/3]",
-    speed: 0.1,
-  },
-  {
-    id: 3,
-    src: "/images/memoria-3.jpg",
-    legend: "Nós dois",
-    aspect: "aspect-square",
-    speed: -0.05,
-  },
-  {
-    id: 4,
-    src: "/images/memoria-4.jpg",
-    legend: "Memória favorita",
-    aspect: "aspect-[3/4]",
-    speed: 0.15,
-  },
-  {
-    id: 5,
-    src: "/images/memoria-5.jpg",
-    legend: "Sempre você",
-    aspect: "aspect-[4/3]",
-    speed: -0.1,
-  },
-  {
-    id: 6,
-    src: "/images/memoria-6.jpg",
-    legend: "Mais um capítulo",
-    aspect: "aspect-square",
-    speed: 0.05,
-  },
+// Formato e velocidade do parallax fixos por posição.
+const aspects = [
+  "aspect-[3/4]",
+  "aspect-[4/3]",
+  "aspect-square",
+  "aspect-[3/4]",
+  "aspect-[4/3]",
+  "aspect-square",
 ];
+const speeds = [-0.15, 0.1, -0.05, 0.15, -0.1, 0.05];
 
 export default function MemoriesGallery() {
+  const { memories: memoriesContent } = useContent();
+  const memories = memoriesContent.map((memory, idx) => ({
+    ...memory,
+    id: idx + 1,
+    aspect: aspects[idx % aspects.length],
+    speed: speeds[idx % speeds.length],
+  }));
+
   const containerRef = useRef<HTMLDivElement>(null);
   const itemsRef = useRef<(HTMLDivElement | null)[]>([]);
   const [imageErrors, setImageErrors] = useState<Record<number, boolean>>({});

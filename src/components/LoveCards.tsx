@@ -1,50 +1,16 @@
 import { motion } from "framer-motion";
 import { Sparkles, Smile, Compass, Heart, Zap, Anchor } from "lucide-react";
+import { useContent } from "../content/ContentContext";
 
-interface BentoCard {
-  title: string;
-  description: string;
-  icon: any;
-  className: string;
-}
-
-const cards: BentoCard[] = [
-  {
-    title: "Seu jeito",
-    description: "Eu amo o jeito como você transforma qualquer momento simples em algo especial. Com você, até os dias comuns parecem ter mais sentido.",
-    icon: Sparkles,
-    className: "md:col-span-1 md:row-span-1",
-  },
-  {
-    title: "Seu sorriso",
-    description: "Seu sorriso tem um efeito que talvez você nem perceba: ele acalma, ilumina e me lembra que eu tenho muita sorte por ter você.",
-    icon: Smile,
-    className: "md:col-span-2 md:row-span-1",
-  },
-  {
-    title: "Sua presença",
-    description: "Você é aquele tipo de pessoa que não precisa fazer esforço para ser importante. Só de estar perto, tudo fica melhor.",
-    icon: Compass,
-    className: "md:col-span-2 md:row-span-1",
-  },
-  {
-    title: "Seu cuidado",
-    description: "Eu amo a forma como você cuida, se importa e demonstra amor nos detalhes. É nos detalhes que eu mais vejo o tamanho do seu coração.",
-    icon: Heart,
-    className: "md:col-span-1 md:row-span-1",
-  },
-  {
-    title: "Sua força",
-    description: "Eu admiro a mulher que você é. Mesmo quando você acha que não está sendo forte, eu vejo em você uma coragem linda.",
-    icon: Zap,
-    className: "md:col-span-1 md:row-span-1",
-  },
-  {
-    title: "A paz que você me traz",
-    description: "No meio de qualquer confusão do mundo, você é meu lugar de calma. Meu abraço preferido. Minha paz.",
-    icon: Anchor,
-    className: "md:col-span-2 md:row-span-1",
-  },
+// Ícones e tamanhos fixos por posição (os textos vêm do conteúdo editável).
+const icons = [Sparkles, Smile, Compass, Heart, Zap, Anchor];
+const classNames = [
+  "md:col-span-1 md:row-span-1",
+  "md:col-span-2 md:row-span-1",
+  "md:col-span-2 md:row-span-1",
+  "md:col-span-1 md:row-span-1",
+  "md:col-span-1 md:row-span-1",
+  "md:col-span-2 md:row-span-1",
 ];
 
 const containerVariants = {
@@ -74,6 +40,13 @@ const cardVariants = {
 };
 
 export default function LoveCards() {
+  const { loveCards } = useContent();
+  const cards = loveCards.map((card, idx) => ({
+    ...card,
+    icon: icons[idx % icons.length],
+    className: classNames[idx % classNames.length],
+  }));
+
   return (
     <section className="relative min-h-screen w-full py-16 md:py-24 bg-background overflow-hidden">
       {/* Background radial glows */}

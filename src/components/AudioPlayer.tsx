@@ -83,6 +83,7 @@ export default function AudioPlayer({ hideUI = false }: { hideUI?: boolean }) {
     <div className="fixed bottom-6 right-6 z-40 select-none">
       <button
         onClick={togglePlay}
+        aria-label={isPlaying ? "Pausar música" : "Tocar música"}
         className={`relative flex items-center justify-center w-12 h-12 rounded-full border bg-vinho/80 backdrop-blur-md text-[#FFF7F2] shadow-[0_8px_30px_rgba(59,10,24,0.4)] transition-all duration-300 active:scale-90 hover:scale-105 ${
           isPlaying 
             ? "border-rosa/60 text-rosa animate-[spin_10s_linear_infinite]" 

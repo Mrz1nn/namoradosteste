@@ -2,10 +2,12 @@ import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Mail, Heart } from "lucide-react";
+import { useContent } from "../content/ContentContext";
 
 gsap.registerPlugin(ScrollTrigger);
 
 export default function LoveLetter() {
+  const { loveLetter } = useContent();
   const containerRef = useRef<HTMLDivElement>(null);
   const letterRef = useRef<HTMLDivElement>(null);
 
@@ -95,38 +97,22 @@ export default function LoveLetter() {
           <div className="relative z-10 pl-4 md:pl-6 text-[#FFF7F2] select-none font-light">
             {/* Date line */}
             <div className="flex justify-between items-center mb-12 text-xs md:text-sm text-dourado font-mono">
-              <span>Escola & Além</span>
-              <span>12 de Junho</span>
+              <span>{loveLetter.placeLine}</span>
+              <span>{loveLetter.dateLine}</span>
             </div>
 
             {/* Letter Content */}
             <div className="space-y-6 md:space-y-8 text-base md:text-lg leading-relaxed text-brancoQuente/90">
-              <p className="font-title italic text-rosa text-xl md:text-2xl font-normal">Meu amor,</p>
+              <p className="font-title italic text-rosa text-xl md:text-2xl font-normal">{loveLetter.greeting}</p>
 
-              <p>
-                Eu poderia te dar qualquer presente, mas nada seria suficiente para representar o quanto você significa para mim.
-              </p>
-
-              <p>
-                Desde o dia <span className="text-dourado font-medium font-mono">08/10/2022</span>, quando nos conhecemos na escola, você começou a fazer parte da minha vida de um jeito que eu nunca mais quis tirar. Aos poucos, você virou minha melhor companhia, meu pensamento bom no meio do dia, minha saudade favorita e o meu motivo de sorrir sem perceber.
-              </p>
-
-              <p>
-                Eu amo quem você é. Amo seu jeito, seu sorriso, sua forma de cuidar, sua presença, sua força e até os detalhes que talvez você ache pequenos, mas que para mim fazem toda diferença.
-              </p>
-
-              <p>
-                Obrigado por estar comigo, por viver essa história comigo e por ser essa mulher tão especial.
-              </p>
-
-              <p>
-                Eu não sei exatamente o que o futuro guarda, mas sei de uma coisa: eu quero continuar vivendo ele com você.
-              </p>
+              {loveLetter.paragraphs.map((paragraph, idx) => (
+                <p key={idx}>{paragraph}</p>
+              ))}
 
               <div className="pt-8">
-                <p className="font-title text-xl text-rosa font-normal italic mb-2">Feliz Dia dos Namorados.</p>
+                <p className="font-title text-xl text-rosa font-normal italic mb-2">{loveLetter.closing1}</p>
                 <p className="font-title text-2xl text-dourado font-normal tracking-wide flex items-center gap-2">
-                  Eu te amo.
+                  {loveLetter.closing2}
                   <Heart className="w-5 h-5 fill-rosa stroke-rosa animate-pulse" />
                 </p>
               </div>

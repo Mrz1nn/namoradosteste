@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Clock, Calendar } from "lucide-react";
+import { useContent } from "../content/ContentContext";
 
 interface TimeDiff {
   years: number;
@@ -10,7 +11,32 @@ interface TimeDiff {
   seconds: number;
 }
 
+/** Converte a data digitada (BR "DD/MM/AAAA" ou ISO "AAAA-MM-DD") em Date local. */
+function parseStartDate(value: string): Date {
+  const v = (value || "").trim();
+  let y = 2022,
+    m = 10,
+    d = 8;
+
+  if (v.includes("/")) {
+    // Padrão brasileiro: DD/MM/AAAA
+    const [dd, mm, yy] = v.split("/").map((n) => parseInt(n, 10));
+    if (dd) d = dd;
+    if (mm) m = mm;
+    if (yy) y = yy;
+  } else if (v.includes("-")) {
+    // Padrão ISO: AAAA-MM-DD
+    const [yy, mm, dd] = v.split("-").map((n) => parseInt(n, 10));
+    if (yy) y = yy;
+    if (mm) m = mm;
+    if (dd) d = dd;
+  }
+
+  return new Date(y, m - 1, d, 0, 0, 0);
+}
+
 export default function LoveCounter() {
+  const { general } = useContent();
   const [timeDiff, setTimeDiff] = useState<TimeDiff>({
     years: 0,
     months: 0,
@@ -21,9 +47,11 @@ export default function LoveCounter() {
   });
 
   useEffect(() => {
+    // Aceita data no padrão BR "DD/MM/AAAA" ou ISO "AAAA-MM-DD".
+    const start = parseStartDate(general.startDate);
+
     const calculateTime = () => {
       const now = new Date();
-      const start = new Date(2022, 9, 8, 0, 0, 0); // October 8, 2022 (index 9 is October)
 
       let years = now.getFullYear() - start.getFullYear();
       let months = now.getMonth() - start.getMonth();
@@ -75,7 +103,7 @@ export default function LoveCounter() {
     const interval = setInterval(calculateTime, 1000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [general.startDate]);
 
   const timeFields = [
     { value: timeDiff.years, label: "Anos", color: "text-dourado text-glow-dourado" },
@@ -113,7 +141,7 @@ export default function LoveCounter() {
           
           <div className="flex items-center gap-3 justify-center mb-10 text-brancoQuente/50 text-xs md:text-sm uppercase tracking-[0.2em] font-mono">
             <Clock className="w-4 h-4 text-rosa" />
-            <span>Tempo decorrido desde 08/10/2022</span>
+            <span>Tempo decorrido desde {general.startDateLabel}</span>
             <Calendar className="w-4 h-4 text-dourado" />
           </div>
 

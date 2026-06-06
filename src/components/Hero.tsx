@@ -1,8 +1,11 @@
 import { motion } from "framer-motion";
 import { ArrowDown, Heart } from "lucide-react";
 import SplineScene from "./SplineScene";
+import { useContent } from "../content/ContentContext";
 
 export default function Hero() {
+  const { hero } = useContent();
+
   const scrollToNextSection = () => {
     const nextSection = document.getElementById("onde-tudo-comecou");
     if (nextSection) {
@@ -29,7 +32,7 @@ export default function Hero() {
           >
             <span className="inline-flex items-center gap-2 text-xs md:text-sm uppercase tracking-[0.2em] text-dourado font-medium mb-4">
               <Heart className="w-4 h-4 fill-dourado/20 stroke-dourado animate-pulse" />
-              Dia dos Namorados • 12 de Junho
+              {hero.badge}
             </span>
           </motion.div>
 
@@ -39,8 +42,8 @@ export default function Hero() {
             transition={{ duration: 1.2, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
             className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-title font-light tracking-tight text-brancoQuente leading-[1.1] mb-6"
           >
-            Desde <span className="text-rosa text-glow-rosa font-normal italic">08/10/2022</span>,<br />
-            minha vida nunca mais foi a mesma.
+            Desde <span className="text-rosa text-glow-rosa font-normal italic">{hero.titleHighlight}</span>,<br />
+            {hero.titleSuffix}
           </motion.h1>
 
           <motion.p
@@ -49,7 +52,7 @@ export default function Hero() {
             transition={{ duration: 1, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
             className="text-brancoQuente/75 text-sm md:text-lg max-w-xl font-light leading-relaxed mb-8"
           >
-            Eu não sabia naquele dia, mas na escola eu estava conhecendo a pessoa que se tornaria meu lugar favorito no mundo.
+            {hero.subtitle}
           </motion.p>
 
           <motion.div
@@ -64,7 +67,7 @@ export default function Hero() {
               {/* Button gradient highlight effect */}
               <div className="absolute inset-0 bg-gradient-to-r from-vinho-light to-rosa opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-0" />
               
-              <span className="relative z-10">Começar nossa história</span>
+              <span className="relative z-10">{hero.buttonText}</span>
               <ArrowDown className="relative z-10 w-4 h-4 text-dourado transition-transform duration-300 group-hover:translate-y-1" />
             </button>
           </motion.div>
