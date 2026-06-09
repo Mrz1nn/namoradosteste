@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { AnimatePresence } from "framer-motion";
 import LoadingScreen from "./LoadingScreen";
+import LoginScreen from "./LoginScreen";
 import FloatingParticles from "./FloatingParticles";
 import Hero from "./Hero";
 import StoryStart from "./StoryStart";
@@ -17,19 +18,26 @@ import AudioPlayer from "./AudioPlayer";
 /** A experiência completa do site de um casal (todas as seções). */
 export default function SiteExperience() {
   const [isLoading, setIsLoading] = useState(true);
+  const [isAuthenticated, setIsAuthenticated] = useState(
+    !import.meta.env.VITE_APP_PASSWORD
+  );
 
   return (
     <>
-      {/* 1. Loading Screen */}
+      {/* 1. Loading Screen & Login */}
       <AnimatePresence mode="wait">
-        {isLoading && <LoadingScreen onFinished={() => setIsLoading(false)} />}
+        {isLoading ? (
+          <LoadingScreen key="loading" onFinished={() => setIsLoading(false)} />
+        ) : !isAuthenticated ? (
+          <LoginScreen key="login" onLogin={() => setIsAuthenticated(true)} />
+        ) : null}
       </AnimatePresence>
 
       {/* Background Ambient Audio */}
-      <AudioPlayer hideUI={isLoading} />
+      <AudioPlayer hideUI={isLoading || !isAuthenticated} />
 
       {/* Main Experience Page */}
-      {!isLoading && (
+      {!isLoading && isAuthenticated && (
         <main className="relative min-h-screen bg-background overflow-x-hidden text-brancoQuente selection:bg-rosa/30 selection:text-brancoQuente">
           {/* Cinematic noise texture overlay */}
           <div className="noise-overlay" />
